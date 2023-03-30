@@ -13,10 +13,15 @@ import javax.annotation.PostConstruct;
 @Data
 public class AppConfig {
     private String path;
-    private String name;
+
+    private static final String FILE_PATH_ENV_NAME = "env.file.path";
+
     @PostConstruct
     private void init() {
-        log.info("user.action.log.file.path={}", path);
+        log.info("file.path ENV: {}, PROPERTY: {},  VALUE: {}",
+                System.getenv(FILE_PATH_ENV_NAME),
+                System.getProperty(FILE_PATH_ENV_NAME),
+                path);
     }
 }
 
