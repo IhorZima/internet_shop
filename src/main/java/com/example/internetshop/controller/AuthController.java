@@ -1,5 +1,6 @@
 package com.example.internetshop.controller;
 
+import com.example.internetshop.config.AppConfig;
 import com.example.internetshop.model.User;
 import com.example.internetshop.model.dto.UserDTO;
 import com.example.internetshop.service.auth.UsernamePasswordAuthenticationService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
-public class AuthController {
+public class  AuthController {
 
     // TODO: extract to constants
     private static final String TOKEN_HEADER_NAME = "TOKEN";
