@@ -1,6 +1,5 @@
 package com.example.internetshop.controller;
 
-import com.example.internetshop.config.AppConfig;
 import com.example.internetshop.model.User;
 import com.example.internetshop.model.dto.UserDTO;
 import com.example.internetshop.service.auth.UsernamePasswordAuthenticationService;
