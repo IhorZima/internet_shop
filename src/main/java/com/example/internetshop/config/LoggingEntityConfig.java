@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -32,7 +33,11 @@ public class LoggingEntityConfig {
     @Bean
     public Path loggingFilePath() throws IOException, URISyntaxException {
         if (Objects.isNull(filePath)) {
-            URI uri = LoggingEntityConfig.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+            URL location = LoggingEntityConfig.class.getProtectionDomain().getCodeSource().getLocation();
+
+            URI uri = !location.toString().startsWith("jar:")
+                    ? location.toURI()
+                    : URI.create(location.getPath());
 
             Path dirPath = Optional.of(uri)
                     .map(URI::toString)
@@ -42,6 +47,7 @@ public class LoggingEntityConfig {
                     .map(array -> array[0])
                     .map(URI::create)
                     .map(Path::of)
+                    .map(Path::getParent)
                     .map(path -> path.resolve(LOG_DIR_NAME))
                     .orElse(Path.of(uri).resolve(LOG_DIR_NAME));
 
