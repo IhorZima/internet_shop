@@ -4,6 +4,7 @@ import com.example.internetshop.model.User;
 import com.example.internetshop.model.dto.UserDTO;
 import com.example.internetshop.service.auth.UsernamePasswordAuthenticationService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpHeaders;
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
-public class  AuthController {
+@Slf4j
+public class AuthController {
 
     // TODO: extract to constants
-    private static final String TOKEN_HEADER_NAME = "TOKEN";
+    public static final String TOKEN_HEADER_NAME = "TOKEN";
 
     private UsernamePasswordAuthenticationService authService;
 
@@ -28,6 +30,9 @@ public class  AuthController {
 
         String token = authService.generateToken(authenticatedUser);
 
+        log.info("Generated token");
+
+        log.info("Setting cookie");
         HttpCookie cookie = ResponseCookie.from(TOKEN_HEADER_NAME, token)
                 .path("/")
                 .build();

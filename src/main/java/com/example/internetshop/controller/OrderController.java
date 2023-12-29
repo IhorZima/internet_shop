@@ -15,12 +15,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<?> login() {
+    public ResponseEntity<?> createOrder() {
 
         String order = orderService.createOrder();
 
         return ResponseEntity
                 .ok()
-                .build();
+                .body(order);
     }
 }
